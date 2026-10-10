@@ -6,11 +6,10 @@
 $authorizedUsers = @("authorizedUser1", "authorizedUser2")
 $authorizedAdmins = @("admin1", "admin2")
 
-# --- Get current users and administrators ---
 $allUsers = Get-LocalUser | Select-Object -ExpandProperty Name
 $currentAdmins = Get-LocalGroupMember -Group "Administrators" | Select-Object -ExpandProperty Name
 
-# --- Remove unauthorized users ---
+--
 foreach ($user in $allUsers) {
     if (($authorizedUsers -notcontains $user) -and ($authorizedAdmins -notcontains $user)) {
         if ($user -notin @("Administrator", "Guest", "DefaultAccount", "WDAGUtilityAccount")) {
@@ -20,7 +19,7 @@ foreach ($user in $allUsers) {
     }
 }
 
-# --- Remove unauthorized administrators ---
+
 foreach ($admin in $currentAdmins) {
     $adminName = ($admin -split "\\")[-1]
     if ($authorizedAdmins -notcontains $adminName) {
