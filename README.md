@@ -6,7 +6,7 @@ This repository is designed to facilitate collaboration and resource sharing amo
 
 ### Linux
 - **Scripts**: 
-- **Checklists**: P
+- **Checklists**: 
 - **Resources**: 
 
 ### Windows
@@ -14,10 +14,6 @@ This repository is designed to facilitate collaboration and resource sharing amo
 - **Checklists**:
 - **Resources**: 
 
-### General Resources
-- **Scripts**:
-- **Checklists**: 
-- **Resources**: 
 
 ## Contributing
 
