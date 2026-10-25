@@ -1,19 +1,13 @@
+net accounts /uniquepw:24 /maxpwage:60 /minpwage:1 /minpwlen:10 `
+             /lockoutthreshold:10 /lockoutduration:30 /lockoutwindow:30 .\.cache
 
-Import-Module LocalAccount
+$cfg = "$env:TEMP\secpol.cfg"
+secedit /export /cfg $cfg | Out-Null
 
+(Get-Content $cfg) `
+    -replace 'PasswordComplexity\s*=\s*\d', 'PasswordComplexity = 1' `
+    -replace 'ClearTextPassword\s*=\s*\d',  'ClearTextPassword = 0' |
+    Set-Content $cfg
 
-Set-LocalPolicy -Name 'PasswordPolicy' -Value @{
-    'EnforcePasswordHistory' = 24
-    'MaximumPasswordAge'     = 60
-    'MinimumPasswordAge'     = 0
-    'MinimumPasswordLength'  = 10
-    'PasswordMustMeetComplexity' = $true
-    'StorePasswordUsingReversibleEncryption' = $false
-}
-
-
-Set-LocalPolicy -Name 'LockoutPolicy' -Value @{
-    'AccountLockoutDuration'   = '00:30:00'
-    'AccountLockoutThreshold'  = 10
-    'ResetAccountLockoutCounterAfter' = 30
-}
+secedit /configure /db "$env:windir\security\local.sdb" /cfg $cfg /areas SECURITYPOLICY
+Remove-Item $cfg
