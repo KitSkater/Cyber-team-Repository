@@ -1,0 +1,25 @@
+1. Open PowerShell
+
+Open Windows PowerShell or PowerShell with admin  from the Start menu.
+
+2. Navigate to Your Desktop
+
+Run the following command to change to your Desktop directory:
+
+cd "$HOME\Desktop"
+
+3. Set the Execution Policy
+
+If scripts are blocked, allow locally created scripts to run for your current user:
+
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+If prompted, enter Y and press Enter.
+
+4. Run a Script
+
+Navigate to the directory containing the script, then run it using .\ followed by the filename.
+
+For example:
+
+.\script.ps1
